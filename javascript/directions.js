@@ -30,6 +30,69 @@ function calcRoute() {
     window.location.href = "/directions";
     //return origin
 }
+
+//intento para lo de los marcadores
+const API_URL = "http://192.168.100.18:4000/api/sucursales/findAll"; //cambiar
+const xhr = new XMLHttpRequest();
+async function onRequestHandler(){
+    if(this.readyState == 4 && this.status == 200){
+      console.log(this.response);
+      const data = JSON.parse(this.response);
+      var list = document.createElement("ul");
+      //ponemos el mapa
+      var myLatlng = new google.maps.LatLng(21.0251466,-101.2785227);
+        var mapOptions = {
+            zoom: 8,
+            center: myLatlng
+        }
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+            
+
+        //INTENTAR HACER UN ARREGLO Y LUEGO UN FOR
+        //https://developers.google.com/maps/documentation/javascript/examples/icon-complex#maps_icon_complex-javascript
+      data.map(item => { 
+            var li = document.createElement("li"); 
+            var link = document.createElement("a"); 
+            link.href = "/index?coordinates="+item.latitude+","+item.longitude;
+            link.innerHTML = item.name;
+            li.appendChild(link)
+            list.appendChild(li); 
+              
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map
+            });
+            marker.setMap(map);
+
+        });
+        var listDiv = document.getElementById('objects');
+        listDiv.appendChild(list); 
+    }
+  }
+xhr.addEventListener("load", onRequestHandler);
+xhr.open("GET",API_URL);
+xhr.send();
+
+
+//prueba marcador
+//var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+//var mapOptions = {
+  //zoom: 4,
+  //center: myLatlng
+//}
+//var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+
+//var marker = new google.maps.Marker({
+//    position: myLatlng,
+//    title:"Hello World!"
+//});
+
+// To add the marker to the map, call setMap();
+//marker.setMap(map);
+
+
+
+
 //export { calcRoute };
 // function calcRoute() {
 //     var request = {
