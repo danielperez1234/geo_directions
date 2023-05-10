@@ -32,7 +32,7 @@ function calcRoute() {
 }
 
 //intento para lo de los marcadores
-const API_URL = "http://192.168.0.169:4000/api/sucursales/findAll"; //cambiar IP
+const API_URL = "http://172.18.70.174:4000/api/sucursales/findAll"; //cambiar IP
 const xhr = new XMLHttpRequest();
 async function onRequestHandler(){
     if(this.readyState == 4 && this.status == 200){
