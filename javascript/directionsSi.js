@@ -30,7 +30,7 @@ directionsDisplay.setMap(map);
 function calcRouteOtro() {
     var request = {
         //origin: document.getElementById("from").value,
-        origin,
+        prueba2bye,
         //destination: document.getElementById("to").value,
         travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
         unitSystem: google.maps.UnitSystem.METRIC

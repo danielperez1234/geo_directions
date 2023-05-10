@@ -25,7 +25,7 @@ function calcRoute() {
         //         unitSystem: google.maps.UnitSystem.METRIC
     
     var origin2 = "funciona por favor"
-    localStorage.setItem("prueba2", origin2);  
+    localStorage.setItem("prueba2", request);  
     console.log("lkas")
     window.location.href = "/directions";
     //return origin
