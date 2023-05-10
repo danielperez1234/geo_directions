@@ -19,17 +19,18 @@ var mapOptions = {
 // //bind the diretionsRenderer to the Map
 // directionsDisplay.setMap(map);
 function calcRoute() {
-    var request = {
-        origin: document.getElementById("from").value,
+    var request = document.getElementById("from").value
         //destination: document.getElementById("to").value,
         //         travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
         //         unitSystem: google.maps.UnitSystem.METRIC
-    }
+    
+    var origin2 = "funciona por favor"
+    localStorage.setItem("prueba2", origin2);  
     console.log("lkas")
     window.location.href = "/directions";
-    return origin
+    //return origin
 }
-export { calcRoute };
+//export { calcRoute };
 // function calcRoute() {
 //     var request = {
 //         origin: document.getElementById("from").value,

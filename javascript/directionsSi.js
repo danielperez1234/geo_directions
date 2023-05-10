@@ -3,6 +3,9 @@ console.log("jkdn")
 //prueba para agarrar el origen, no sirvio jaja
 //import { calcRoute } from "./directions";
 //console.log(origin);
+var prueba2hola = localStorage.getItem("prueba2");  
+var prueba2bye = prueba2hola;  
+console.log(prueba2bye)
 
 var mylatlng = { lat: 21.15153969516301, lng: -101.71164537558829 };
 var mapOptions = {
