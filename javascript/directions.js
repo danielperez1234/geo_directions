@@ -18,7 +18,15 @@ var mapOptions = {
 // var directionsDisplay = new google.maps.DirectionsRenderer();
 // //bind the diretionsRenderer to the Map
 // directionsDisplay.setMap(map);
-
+function calcRoute() {
+    window.location.href = "/directions";
+    var request = {
+        origin: document.getElementById("from").value,
+        //destination: document.getElementById("to").value,
+        //         travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
+        //         unitSystem: google.maps.UnitSystem.METRIC
+    }
+}
 // function calcRoute() {
 //     var request = {
 //         origin: document.getElementById("from").value,
@@ -52,7 +60,7 @@ var mapOptions = {
 //     });
 // }
 
-// window.calcRoute = calcRoute;
+window.calcRoute = calcRoute;
 //create autocomplete objects for all inputs
 var options = {
     types: ["(cities)"],

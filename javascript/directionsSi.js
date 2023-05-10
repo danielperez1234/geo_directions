@@ -1,4 +1,5 @@
 // set map options
+
 var mylatlng = { lat: 21.15153969516301, lng: -101.71164537558829 };
 var mapOptions = {
     center: mylatlng,
