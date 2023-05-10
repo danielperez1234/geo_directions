@@ -1,8 +1,8 @@
 // set map options
 console.log("jkdn")
-//prueba para agarrar el origen
-import { calcRoute } from "./directions";
-console.log(origin);
+//prueba para agarrar el origen, no sirvio jaja
+//import { calcRoute } from "./directions";
+//console.log(origin);
 
 var mylatlng = { lat: 21.15153969516301, lng: -101.71164537558829 };
 var mapOptions = {
@@ -58,7 +58,7 @@ function calcRouteOtro() {
     });
 }
 
-window.calcRoute = calcRoute;
+window.calcRouteOtro = calcRouteOtro;
 //create autocomplete objects for all inputs
 var options = {
     types: ["(cities)"],
