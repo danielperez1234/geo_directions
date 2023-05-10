@@ -1,4 +1,8 @@
 // set map options
+console.log("jkdn")
+//prueba para agarrar el origen
+import { calcRoute } from "./directions";
+console.log(origin);
 
 var mylatlng = { lat: 21.15153969516301, lng: -101.71164537558829 };
 var mapOptions = {
@@ -20,10 +24,11 @@ var directionsDisplay = new google.maps.DirectionsRenderer();
 //bind the diretionsRenderer to the Map
 directionsDisplay.setMap(map);
 
-function calcRoute() {
+function calcRouteOtro() {
     var request = {
-        origin: document.getElementById("from").value,
-        destination: document.getElementById("to").value,
+        //origin: document.getElementById("from").value,
+        origin,
+        //destination: document.getElementById("to").value,
         travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
         unitSystem: google.maps.UnitSystem.METRIC
    }
@@ -59,7 +64,7 @@ var options = {
     types: ["(cities)"],
     fields: ["address_components", "geometry", "icon", "name"],
 };
-var input_from = document.getElementById("from");
-var autocomplete_from = new google.maps.places.Autocomplete(input_from, options);
-var input_to = document.getElementById("to");
-var autocomplete_from = new google.maps.places.Autocomplete(input_to, options);
+//var input_from = document.getElementById("from");
+//var autocomplete_from = new google.maps.places.Autocomplete(input_from, options);
+//var input_to = document.getElementById("to");
+//var autocomplete_from = new google.maps.places.Autocomplete(input_to, options);
