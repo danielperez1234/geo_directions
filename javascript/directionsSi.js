@@ -4,9 +4,9 @@ console.log("jkdn")
 //import { calcRoute } from "./directions";
 //console.log(origin);
 var prueba2hola = localStorage.getItem("prueba2");  
-var prueba2bye = prueba2hola;  
-console.log(prueba2bye)
-
+var origin = prueba2hola;  
+console.log(origin)
+var destination =  "Guanajuato, Gto., México"
 var mylatlng = { lat: 21.15153969516301, lng: -101.71164537558829 };
 var mapOptions = {
     center: mylatlng,
@@ -26,24 +26,25 @@ var diretionsService = new google.maps.DirectionsService();
 var directionsDisplay = new google.maps.DirectionsRenderer();
 //bind the diretionsRenderer to the Map
 directionsDisplay.setMap(map);
-
+calcRouteOtro()
 function calcRouteOtro() {
     var request = {
         //origin: document.getElementById("from").value,
-        prueba2bye,
+        origin,
         //destination: document.getElementById("to").value,
+        destination: "Guanajuato, Gto., México",
         travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
         unitSystem: google.maps.UnitSystem.METRIC
    }
-//     //Pass the request to the route method
+    //Pass the request to the route method
     diretionsService.route(request, (result, status) => {
         if (status == google.maps.DirectionsStatus.OK) {
             //get distance and time
             const output = document.querySelector('#output');
             output.innerHTML = "<div class='alert-info'>From: " +
-                document.getElementById("from").value +
+                origin +
                 ". <br />To: " +
-                document.getElementById("to").value +
+                destination +
                 ". <br />Driving distance <i class='fas fa-road'></i> :" +
                 result.routes[0].legs[0].distance.text +
                 ". <br />Duration <i class='fas fa-hourglass-start'></i> :" +
