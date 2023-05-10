@@ -32,7 +32,7 @@ function calcRoute() {
 }
 
 //intento para lo de los marcadores
-const API_URL = "http://192.168.100.18:4000/api/sucursales/findAll"; //cambiar
+const API_URL = "http://192.168.0.169:4000/api/sucursales/findAll"; //cambiar IP
 const xhr = new XMLHttpRequest();
 async function onRequestHandler(){
     if(this.readyState == 4 && this.status == 200){
@@ -40,26 +40,27 @@ async function onRequestHandler(){
       const data = JSON.parse(this.response);
       var list = document.createElement("ul");
       //ponemos el mapa
-      var myLatlng = new google.maps.LatLng(21.0251466,-101.2785227);
+      var myLatlngI = new google.maps.LatLng(21.0251466,-101.2785227);
         var mapOptions = {
             zoom: 8,
-            center: myLatlng
+            center: myLatlngI
         }
         var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
-            
-
+        
+        var marker;
         //INTENTAR HACER UN ARREGLO Y LUEGO UN FOR
         //https://developers.google.com/maps/documentation/javascript/examples/icon-complex#maps_icon_complex-javascript
       data.map(item => { 
-            var li = document.createElement("li"); 
-            var link = document.createElement("a"); 
-            link.href = "/index?coordinates="+item.latitude+","+item.longitude;
-            link.innerHTML = item.name;
-            li.appendChild(link)
-            list.appendChild(li); 
+            //var li = document.createElement("li"); 
+            //var link = document.createElement("a"); 
+            //link.href = "/index?coordinates="+item.latitude+","+item.longitude;
+            //link.innerHTML = item.name;
+            //li.appendChild(link)
+            //list.appendChild(li); 
+            var myLatlngCoordenadaSucursal = new google.maps.LatLng(item.latitude,item.longitude);
               
-            var marker = new google.maps.Marker({
-                position: myLatlng,
+            marker = new google.maps.Marker({
+                position: myLatlngCoordenadaSucursal,
                 map: map
             });
             marker.setMap(map);
