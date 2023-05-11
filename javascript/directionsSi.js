@@ -34,13 +34,14 @@ var diretionsService = new google.maps.DirectionsService();
 var directionsDisplay = new google.maps.DirectionsRenderer();
 //bind the diretionsRenderer to the Map
 directionsDisplay.setMap(map);
-calcRouteOtro();
-function calcRouteOtro() {
+//calcRouteOtro();
+function calcRouteOtro(destination) {
   var request = {
     //origin: document.getElementById("from").value,
     origin,
+    destination,
     //destination: document.getElementById("to").value,
-    destination: "Guanajuato, Gto., México",
+    //destination: "Guanajuato, Gto., México",
     travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
     unitSystem: google.maps.UnitSystem.METRIC,
   };
@@ -125,7 +126,7 @@ var coordenadasSucursales = [];
 var contador = 0;
 var nombresSucursales = [];
 
-const API_URL = "http://172.18.70.174:4000/api/sucursales/findAll"; //cambiar IP
+const API_URL = "http://192.168.100.18:4000/api/sucursales/findAll"; //cambiar IP
 const xhr = new XMLHttpRequest();
 async function onRequestHandler() {
   if (this.readyState == 4 && this.status == 200) {
@@ -165,8 +166,10 @@ async function onRequestHandler() {
   }
 }
 
+//DISTANCE MATRIX
 async function distanceMatrix() {
 
+    var nombresDistancias = [[]]
   const matrixOptions = {
     origins: [origin], // technician locations
     destinations: nombresSucursales, // customer address
@@ -194,15 +197,43 @@ async function distanceMatrix() {
   for (let i=0; i<routes.length; i++) {
     console.log(response.rows[0].elements[0].duration.value)
     var routeseconds = response.rows[0].elements[i].duration.value;
+    
     if (routeseconds > 0 && routeseconds < leastseconds) {
       leastseconds = routeseconds; // this route is the shortest (so far)
       drivetime = response.rows[0].elements[i].duration.text; // hours and minutes
       closest = response.destinationAddresses[i]; // city name from destinations
     }
+    
+    //otro intento
+    var nombreDestino = response.destinationAddresses[i]
+    var distanciaDestino = response.rows[0].elements[i].duration.value
+    console.log(i)
+    nombresDistancias[i] = new Array(2);
+    //nombresDistancias[i][0] = {nombre: nombreDestino};
+    //nombresDistancias[i][1] = {distancia: distanciaDestino};
+    
+    nombresDistancias[i][0] = nombreDestino;
+    nombresDistancias[i][1] = distanciaDestino;
+
+    //nombresDistancias.sort((a,b) => a[1] - b[1]);
+    nombresDistancias.sort((a,b) => a[1] - b[1])
+
+    console.log("ordenado")
+    console.log(nombresDistancias);
+    //console.log(newArray);
   }
-  alert("The closest location is " + closest + " (" + drivetime + ")");   
+
+  
+
+  //console.log(nombresDistancias)
+  calcRouteOtro(closest)
+  alert("The closest location is " + closest + " (" + drivetime + ")"); 
 
 }
+
+function condicionParaOrdenar(personaA, personaB) {
+    return personaB.edad - personaA.edad;
+  }
 
 xhr.addEventListener("load", onRequestHandler);
 xhr.open("GET", API_URL);
