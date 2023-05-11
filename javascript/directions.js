@@ -41,18 +41,18 @@ async function onRequestHandler() {
         //ponemos el mapa
         var myLatlngI = new google.maps.LatLng(21.0251466, -101.2785227);
         var mapOptions = {
-            zoom: 8,
+            zoom: 7.5,
             center: myLatlngI
         }
         var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
 
         var marker;
-        //INTENTAR HACER UN ARREGLO Y LUEGO UN FOR
 
         data.map(item => {
             var myLatlngCoordenadaSucursal = new google.maps.LatLng(item.latitude, item.longitude);
             marker = new google.maps.Marker({
                 position: myLatlngCoordenadaSucursal,
+                icon: '/map',
                 map: map
             });
             marker.setMap(map);

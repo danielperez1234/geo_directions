@@ -100,7 +100,7 @@ body {
   font-size: 30px;
   font-weight: 700;
   letter-spacing: 6px;
-  color: rgba(7, 167, 185, 0.703);
+  color: rgba(19, 118, 239, 0.703);
   margin-bottom: 20px;
 }
 
@@ -137,7 +137,7 @@ body {
   height: 40px;
   border-radius: 10px;
   background-image: linear-gradient(to right, #E6CBA5, #C8A185);
-  color: rgba(7, 167, 185, 0.703);
+  color: #fff;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 6px;
@@ -165,7 +165,7 @@ body {
 .output {
   margin-top: 20px;
   font-size: 18px;
-  color: rgba(7, 167, 185, 0.703);
+  color: rgba(19, 118, 239, 0.703);
 }
 
 .output-item {

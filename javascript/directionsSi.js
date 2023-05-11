@@ -1,13 +1,12 @@
 /*Con esta variable se permite calcular la distancia 
 y los tiempos de viaje entre mutiples ubicaciones*/
 const disMatrix = new google.maps.DistanceMatrixService();      
+//import swal from 'sweetalert';
 
 var origin = localStorage.getItem("prueba2");
 var username = localStorage.getItem("username");
-//var origin = prueba2hola;
 console.log(origin);
 console.log(username);
-//var destination = "Guanajuato, Gto., México";
 var mylatlng = { lat: 21.15153969516301, lng: -101.71164537558829 };
 var mapOptions = {
   center: mylatlng,
@@ -26,7 +25,7 @@ initMap();
 //create a Directions service object to use the route method and get a result for our request
 var diretionsService = new google.maps.DirectionsService();
 //create a DirectionsRenderer object which we will use to display route
-var directionsDisplay = new google.maps.DirectionsRenderer();
+var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers:true});
 //bind the diretionsRenderer to the Map
 directionsDisplay.setMap(map);
 //calcRouteOtro();
@@ -45,6 +44,20 @@ function calcRouteOtro(destination) {
   diretionsService.route(request, (result, status) => {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(result);
+      var marker
+      marker = new google.maps.Marker({
+        position: result.routes[0].legs[0].start_location,
+        icon: '/map',
+        map: map
+    });
+    marker.setMap(map);
+    marker = new google.maps.Marker({
+      position: result.routes[0].legs[0].end_location,
+      icon: '/map',
+      map: map
+  });
+  
+  marker.setMap(map);
     } else {
       //delete the routes from map
       directionsDisplay.setDirections({ routes: [] });
@@ -71,10 +84,8 @@ console.log("EL DESTINO DENTRO" + destination)
     ". <br />To: " +
     destination +
     ". <br />Driving distance <i class='fas fa-road'></i> :" +
-    //result.routes[0].legs[0].distance.text +
     distanciaTxt +
     ". <br />Duration <i class='fas fa-hourglass-start'></i> :" +
-    //result.routes[0].legs[0].duration.text +
     duracionTxt +
     ". <br><br></div>";
 }
@@ -84,12 +95,8 @@ console.log("EL DESTINO DENTRO" + destination)
 const geocoder = new google.maps.Geocoder();
 const infowindow = new google.maps.InfoWindow();
 
-//const inputI = "21.0251466,-101.2785227";
-//geocodeLatLng(geocoder, map, infowindow, inputI);
-
 async function geocodeLatLng(geocoder, map, infowindow, input, contador) {
   var nombreCoordenada = "";
-  //var input = inputI
   const latlngStr = input.split(",", 2);
   const latlng = {
     lat: parseFloat(latlngStr[0]),
@@ -100,7 +107,6 @@ async function geocodeLatLng(geocoder, map, infowindow, input, contador) {
     console.log("se logro")
     if (response.results[0]) {
       map.setZoom(11);
-      //console.log(response.results[0].address_components[3].long_name)
       nombreCoordenada =
         response.results[0].address_components[1].long_name +
         ", " +
@@ -110,11 +116,6 @@ async function geocodeLatLng(geocoder, map, infowindow, input, contador) {
       console.log(nombreCoordenada);
       nombresSucursales[contador] = nombreCoordenada;
       console.log(nombresSucursales);
-      console.log("hola")
-      //const marker = new google.maps.Marker({
-      //position: latlng,
-      //map: map,
-      //});
 
       infowindow.setContent(response.results[0].formatted_address);
       //infowindow.open(map, marker);
@@ -196,7 +197,6 @@ async function distanceMatrix() {
       closest = response.destinationAddresses[i]; // city name from destinations
     }
     
-    //otro intento
     var nombreDestino = response.destinationAddresses[i]
     var duracionDestino = response.rows[0].elements[i].duration.value
     var distanciaTxtx = response.rows[0].elements[i].distance.text
@@ -218,8 +218,8 @@ async function distanceMatrix() {
   }
 
   calcRouteOtro(closest)
-  alert(username + " tu sucursal mas cercana es " + closest + ", se encuentra a " + drivetime + " manejando"); 
-
+ 
+  swal(username, "Tu sucursal mas cercana es " + closest + ", se encuentra a " + drivetime + " manejando.", "success");
 
   for (let i=0; i<routes.length; i++) {
     console.log("ordenado dentro")
@@ -230,10 +230,6 @@ async function distanceMatrix() {
 
 
 }
-
-function condicionParaOrdenar(personaA, personaB) {
-    return personaB.edad - personaA.edad;
-  }
 
 xhr.addEventListener("load", onRequestHandler);
 xhr.open("GET", API_URL);
