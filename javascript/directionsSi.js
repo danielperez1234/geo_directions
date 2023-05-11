@@ -28,30 +28,14 @@ directionsDisplay.setMap(map);
 //calcRouteOtro();
 function calcRouteOtro(destination) {
   var request = {
-    //origin: document.getElementById("from").value,
     origin,
     destination,
-    //destination: document.getElementById("to").value,
-    //destination: "Guanajuato, Gto., México",
     travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
     unitSystem: google.maps.UnitSystem.METRIC,
   };
   //Pass the request to the route method
   diretionsService.route(request, (result, status) => {
     if (status == google.maps.DirectionsStatus.OK) {
-      //get distance and time
-      // const output = document.querySelector("#output");
-      // output.innerHTML =
-      //   "<div class='alert-info'>From: " +
-      //   origin +
-      //   ". <br />To: " +
-      //   destination +
-      //   ". <br />Driving distance <i class='fas fa-road'></i> :" +
-      //   result.routes[0].legs[0].distance.text +
-      //   ". <br />Duration <i class='fas fa-hourglass-start'></i> :" +
-      //   result.routes[0].legs[0].duration.text +
-      //   ".</div>";
-      //display route
       directionsDisplay.setDirections(result);
     } else {
       //delete the routes from map
@@ -64,39 +48,50 @@ function calcRouteOtro(destination) {
   });
 }
 
-function imprimirLista(destination) {
-  var request = {
-    origin,
-    destination,
-    travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
-    unitSystem: google.maps.UnitSystem.METRIC,
-  };
-  //Pass the request to the route method
-  diretionsService.route(request, (result, status) => {
-    if (status == google.maps.DirectionsStatus.OK) {
+//LISTA TAL VEZ QUITAMOS
+var diretionsServiceLista = new google.maps.DirectionsService();
+function imprimirLista(destination, distanciaTxt, duracionTxt) {
+  console.log("EL DESTINO ANTES" + destination)
 
-      var div = document.createElement("div");
-      const output = document.querySelector("#output").appendChild(div);
-      output.innerHTML =
-        "<div class='alert-info'>From: " +
-        origin +
-        ". <br />To: " +
-        destination +
-        ". <br />Driving distance <i class='fas fa-road'></i> :" +
-        result.routes[0].legs[0].distance.text +
-        ". <br />Duration <i class='fas fa-hourglass-start'></i> :" +
-        result.routes[0].legs[0].duration.text +
-        ". <br><br></div>";
-      
-    } else {
-      //delete the routes from map
-      directionsDisplay.setDirections({ routes: [] });
-      map.setCenter(mylatlng);
-      //show error message
-      output.innerHTML =
-        "<div class='alert-danger'><i class='fas fa-exclamation-triangle-start'></i>Could not retrieve driving distance. </div>";
-    }
-  });
+  var div = document.createElement("div");
+  const output = document.querySelector("#output").appendChild(div);
+  
+console.log("EL DESTINO DENTRO" + destination)
+  output.innerHTML =
+    "<div class='alert-info'>From: " +
+    origin +
+    ". <br />To: " +
+    destination +
+    ". <br />Driving distance <i class='fas fa-road'></i> :" +
+    //result.routes[0].legs[0].distance.text +
+    distanciaTxt +
+    ". <br />Duration <i class='fas fa-hourglass-start'></i> :" +
+    //result.routes[0].legs[0].duration.text +
+    duracionTxt +
+    ". <br><br></div>";
+  
+
+  // var request = {
+  //   origin,
+  //   destination,
+  //   travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
+  //   unitSystem: google.maps.UnitSystem.METRIC,
+  // };
+  // console.log("EL DESTINO" + destination)
+  // //Pass the request to the route method
+  // diretionsServiceLista.route(request, (result, status) => {
+  //   if (status == google.maps.DirectionsStatus.OK) {
+
+  //     //innerhtml
+  //   } else {
+  //     //delete the routes from map
+  //     directionsDisplay.setDirections({ routes: [] });
+  //     map.setCenter(mylatlng);
+  //     //show error message
+  //     output.innerHTML =
+  //       "<div class='alert-danger'><i class='fas fa-exclamation-triangle-start'></i>Could not retrieve driving distance. </div>";
+  //   }
+  // });
 }
 
 //REVERSE GEOCODING
@@ -222,7 +217,8 @@ async function distanceMatrix() {
 
   for (let i=0; i<routes.length; i++) {
     console.log("AAAAAAAAAAAAAAAAAAAA")
-    console.log(response.rows[0].elements[0].duration.value)
+    console.log(response.rows[0].elements)
+    console.log(response.rows[0].elements[i].duration.value)
     var routeseconds = response.rows[0].elements[i].duration.value;
     
     if (routeseconds > 0 && routeseconds < leastseconds) {
@@ -233,14 +229,18 @@ async function distanceMatrix() {
     
     //otro intento
     var nombreDestino = response.destinationAddresses[i]
-    var distanciaDestino = response.rows[0].elements[i].duration.value
+    var duracionDestino = response.rows[0].elements[i].duration.value
+    var distanciaTxtx = response.rows[0].elements[i].distance.text
+    var duracionTxt = response.rows[0].elements[i].duration.text
     console.log(i)
-    nombresDistancias[i] = new Array(2);
+    nombresDistancias[i] = new Array(4);
     //nombresDistancias[i][0] = {nombre: nombreDestino};
-    //nombresDistancias[i][1] = {distancia: distanciaDestino};
+    //nombresDistancias[i][1] = {distancia: duracionDestino};
     
     nombresDistancias[i][0] = nombreDestino;
-    nombresDistancias[i][1] = distanciaDestino;
+    nombresDistancias[i][1] = duracionDestino;
+    nombresDistancias[i][2] = distanciaTxtx;
+    nombresDistancias[i][3] = duracionTxt;
 
     //nombresDistancias.sort((a,b) => a[1] - b[1]);
     nombresDistancias.sort((a,b) => a[1] - b[1])
@@ -257,7 +257,7 @@ async function distanceMatrix() {
     console.log("ordenado dentro")
     console.log(nombresDistancias);
     console.log("parametro: " + nombresDistancias[i][0])
-    imprimirLista(nombresDistancias[i][0])
+    imprimirLista(nombresDistancias[i][0],nombresDistancias[i][2], nombresDistancias[i][3])
   }
 
 
