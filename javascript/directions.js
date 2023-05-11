@@ -20,13 +20,15 @@ var mapOptions = {
 // directionsDisplay.setMap(map);
 function calcRoute() {
     var request = document.getElementById("from").value
+    var name = document.getElementById("name").value
         //destination: document.getElementById("to").value,
         //         travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
         //         unitSystem: google.maps.UnitSystem.METRIC
     
-    var origin2 = "funciona por favor"
-    localStorage.setItem("prueba2", request);  
-    console.log("lkas")
+    //var origin2 = "funciona por favor"
+    localStorage.setItem("prueba2", request); 
+    localStorage.setItem("username", name);  
+    //console.log("lkas")
     window.location.href = "/directions";
     //return origin
 }

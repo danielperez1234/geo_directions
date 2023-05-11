@@ -1,9 +1,11 @@
 const disMatrix = new google.maps.DistanceMatrixService();      
 
-var prueba2hola = localStorage.getItem("prueba2");
-var origin = prueba2hola;
+var origin = localStorage.getItem("prueba2");
+var username = localStorage.getItem("username");
+//var origin = prueba2hola;
 console.log(origin);
-var destination = "Guanajuato, Gto., México";
+console.log(username);
+//var destination = "Guanajuato, Gto., México";
 var mylatlng = { lat: 21.15153969516301, lng: -101.71164537558829 };
 var mapOptions = {
   center: mylatlng,
@@ -216,9 +218,9 @@ async function distanceMatrix() {
   let closest = "";
 
   for (let i=0; i<routes.length; i++) {
-    console.log("AAAAAAAAAAAAAAAAAAAA")
+    //console.log("AAAAAAAAAAAAAAAAAAAA")
     console.log(response.rows[0].elements)
-    console.log(response.rows[0].elements[i].duration.value)
+    //console.log(response.rows[0].elements[i].duration.value)
     var routeseconds = response.rows[0].elements[i].duration.value;
     
     if (routeseconds > 0 && routeseconds < leastseconds) {
@@ -250,7 +252,7 @@ async function distanceMatrix() {
   }
 
   calcRouteOtro(closest)
-  alert("The closest location is " + closest + " (" + drivetime + ")"); 
+  alert(username + " tu sucursal mas cercana es " + closest + ", se encuentra a " + drivetime + " manejando"); 
 
 
   for (let i=0; i<routes.length; i++) {
