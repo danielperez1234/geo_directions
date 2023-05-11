@@ -1,13 +1,4 @@
-
-// set map options
-console.log("jkdn");
-//prueba para agarrar el origen, no sirvio jaja
-//import { calcRoute } from "./directions";
-//console.log(origin);
-
-const disMatrix = new google.maps.DistanceMatrixService();
- // instantiate Distance Matrix service
-      
+const disMatrix = new google.maps.DistanceMatrixService();      
 
 var prueba2hola = localStorage.getItem("prueba2");
 var origin = prueba2hola;
@@ -49,7 +40,43 @@ function calcRouteOtro(destination) {
   diretionsService.route(request, (result, status) => {
     if (status == google.maps.DirectionsStatus.OK) {
       //get distance and time
-      const output = document.querySelector("#output");
+      // const output = document.querySelector("#output");
+      // output.innerHTML =
+      //   "<div class='alert-info'>From: " +
+      //   origin +
+      //   ". <br />To: " +
+      //   destination +
+      //   ". <br />Driving distance <i class='fas fa-road'></i> :" +
+      //   result.routes[0].legs[0].distance.text +
+      //   ". <br />Duration <i class='fas fa-hourglass-start'></i> :" +
+      //   result.routes[0].legs[0].duration.text +
+      //   ".</div>";
+      //display route
+      directionsDisplay.setDirections(result);
+    } else {
+      //delete the routes from map
+      directionsDisplay.setDirections({ routes: [] });
+      map.setCenter(mylatlng);
+      //show error message
+      output.innerHTML =
+        "<div class='alert-danger'><i class='fas fa-exclamation-triangle-start'></i>Could not retrieve driving distance. </div>";
+    }
+  });
+}
+
+function imprimirLista(destination) {
+  var request = {
+    origin,
+    destination,
+    travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
+    unitSystem: google.maps.UnitSystem.METRIC,
+  };
+  //Pass the request to the route method
+  diretionsService.route(request, (result, status) => {
+    if (status == google.maps.DirectionsStatus.OK) {
+
+      var div = document.createElement("div");
+      const output = document.querySelector("#output").appendChild(div);
       output.innerHTML =
         "<div class='alert-info'>From: " +
         origin +
@@ -60,8 +87,7 @@ function calcRouteOtro(destination) {
         ". <br />Duration <i class='fas fa-hourglass-start'></i> :" +
         result.routes[0].legs[0].duration.text +
         ".</div>";
-      //display route
-      directionsDisplay.setDirections(result);
+      
     } else {
       //delete the routes from map
       directionsDisplay.setDirections({ routes: [] });
@@ -220,14 +246,18 @@ async function distanceMatrix() {
 
     console.log("ordenado")
     console.log(nombresDistancias);
-    //console.log(newArray);
   }
 
-  
-
-  //console.log(nombresDistancias)
   calcRouteOtro(closest)
   alert("The closest location is " + closest + " (" + drivetime + ")"); 
+
+
+  for (let i=0; i<routes.length; i++) {
+    console.log("ordenado dentro")
+    console.log(nombresDistancias);
+    imprimirLista(nombresDistancias[i][0])
+  }
+
 
 }
 
