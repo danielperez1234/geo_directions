@@ -152,7 +152,7 @@ var coordenadasSucursales = [];
 var contador = 0;
 var nombresSucursales = [];
 
-const API_URL = "http://192.168.100.18:4000/api/sucursales/findAll"; //cambiar IP
+const API_URL = "http://192.168.0.5:4000/api/sucursales/findAll"; //cambiar IP
 const xhr = new XMLHttpRequest();
 async function onRequestHandler() {
   if (this.readyState == 4 && this.status == 200) {
