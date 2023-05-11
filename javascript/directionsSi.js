@@ -77,29 +77,6 @@ console.log("EL DESTINO DENTRO" + destination)
     //result.routes[0].legs[0].duration.text +
     duracionTxt +
     ". <br><br></div>";
-  
-
-  // var request = {
-  //   origin,
-  //   destination,
-  //   travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING AND TRANSIT
-  //   unitSystem: google.maps.UnitSystem.METRIC,
-  // };
-  // console.log("EL DESTINO" + destination)
-  // //Pass the request to the route method
-  // diretionsServiceLista.route(request, (result, status) => {
-  //   if (status == google.maps.DirectionsStatus.OK) {
-
-  //     //innerhtml
-  //   } else {
-  //     //delete the routes from map
-  //     directionsDisplay.setDirections({ routes: [] });
-  //     map.setCenter(mylatlng);
-  //     //show error message
-  //     output.innerHTML =
-  //       "<div class='alert-danger'><i class='fas fa-exclamation-triangle-start'></i>Could not retrieve driving distance. </div>";
-  //   }
-  // });
 }
 
 //REVERSE GEOCODING
@@ -155,7 +132,7 @@ var coordenadasSucursales = [];
 var contador = 0;
 var nombresSucursales = [];
 
-const API_URL = "http://192.168.100.18:4000/api/sucursales/findAll"; //cambiar IP
+const API_URL = "http://172.18.70.100:4000/api/sucursales/findAll"; //cambiar IP
 const xhr = new XMLHttpRequest();
 async function onRequestHandler() {
   if (this.readyState == 4 && this.status == 200) {
@@ -169,29 +146,15 @@ async function onRequestHandler() {
       center: myLatlngI,
     };
     contador = -1
-    //var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
     await Promise.all(data.map(async (item) => {
       var coordenadaSucursal = item.latitude + ", " + item.longitude;
-      //console.log(coordenadaSucursal)
       coordenadasSucursales[contador] = coordenadaSucursal;
       console.log(coordenadasSucursales);
-      //var nombreSucursal = ""
       contador = contador + 1;
      await  geocodeLatLng(geocoder, map, infowindow, coordenadaSucursal, contador);
       
-      //console.log("ajd" +nombreSucursal)
-      //nombresSucursales[contador] = nombreSucursal
-      //console.log(nombresSucursales)
-      //marker = new google.maps.Marker({
-      //    position: myLatlngCoordenadaSucursal,
-      //    map: map
-      //});
-      //marker.setMap(map);
   }));
-    //var marker;
     distanceMatrix()
-    //var listDiv = document.getElementById('objects');
-    //listDiv.appendChild(list);
   }
 }
 
@@ -224,9 +187,7 @@ async function distanceMatrix() {
   let closest = "";
 
   for (let i=0; i<routes.length; i++) {
-    //console.log("AAAAAAAAAAAAAAAAAAAA")
     console.log(response.rows[0].elements)
-    //console.log(response.rows[0].elements[i].duration.value)
     var routeseconds = response.rows[0].elements[i].duration.value;
     
     if (routeseconds > 0 && routeseconds < leastseconds) {
@@ -250,7 +211,6 @@ async function distanceMatrix() {
     nombresDistancias[i][2] = distanciaTxtx;
     nombresDistancias[i][3] = duracionTxt;
 
-    //nombresDistancias.sort((a,b) => a[1] - b[1]);
     nombresDistancias.sort((a,b) => a[1] - b[1])
 
     console.log("ordenado")
