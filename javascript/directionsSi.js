@@ -1,3 +1,5 @@
+/*Con esta variable se permite calcular la distancia 
+y los tiempos de viaje entre mutiples ubicaciones*/
 const disMatrix = new google.maps.DistanceMatrixService();      
 
 var origin = localStorage.getItem("prueba2");
@@ -28,6 +30,10 @@ var directionsDisplay = new google.maps.DirectionsRenderer();
 //bind the diretionsRenderer to the Map
 directionsDisplay.setMap(map);
 //calcRouteOtro();
+/*se utiliza para calcular la ruta desde el origen hasta el destino 
+especificado. Utiliza el objeto diretionsService para enviar una 
+solicitud de ruta y, si la respuesta es exitosa, muestra la ruta en 
+el mapa utilizando el objeto directionsDisplay.*/
 function calcRouteOtro(destination) {
   var request = {
     origin,
