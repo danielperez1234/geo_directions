@@ -72,3 +72,108 @@ html, body {
   font-weight: 700;
   letter-spacing: 6px;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-image: linear-gradient(to bottom right, #E6CBA5, #C8A185);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: rgba(7, 167, 185, 0.703);
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-group .input-label {
+  width: 80px;
+  font-size: 20px;
+  color: rgba(7, 167, 185, 0.703);
+}
+
+.input-group .form-control {
+  flex: 1;
+  height: 30px;
+  margin-left: 10px;
+  background-color: rgba(7, 167, 185, 0.15);
+  border: 2px solid rgba(159, 159, 159, 0.372);
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+}
+
+.btn {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  background-image: linear-gradient(to right, #E6CBA5, #C8A185);
+  color: rgba(7, 167, 185, 0.703);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  margin-top: 20px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.directions-icon {
+  margin-right: 10px;
+}
+
+.map-container {
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.output {
+  margin-top: 20px;
+  font-size: 18px;
+  color: rgba(7, 167, 185, 0.703);
+}
+
+.output-item {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.output-item i {
+  margin-right: 10px;
+}
