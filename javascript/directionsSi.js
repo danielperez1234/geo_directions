@@ -86,7 +86,7 @@ function imprimirLista(destination) {
         result.routes[0].legs[0].distance.text +
         ". <br />Duration <i class='fas fa-hourglass-start'></i> :" +
         result.routes[0].legs[0].duration.text +
-        ".</div>";
+        ". <br><br></div>";
       
     } else {
       //delete the routes from map
@@ -200,7 +200,7 @@ async function distanceMatrix() {
     origins: [origin], // technician locations
     destinations: nombresSucursales, // customer address
     travelMode: 'DRIVING',
-    unitSystem: google.maps.UnitSystem.IMPERIAL
+    unitSystem: google.maps.UnitSystem.METRIC
   };
   // Call Distance Matrix service
   // Callback function used to process Distance Matrix response
@@ -221,6 +221,7 @@ async function distanceMatrix() {
   let closest = "";
 
   for (let i=0; i<routes.length; i++) {
+    console.log("AAAAAAAAAAAAAAAAAAAA")
     console.log(response.rows[0].elements[0].duration.value)
     var routeseconds = response.rows[0].elements[i].duration.value;
     
@@ -255,6 +256,7 @@ async function distanceMatrix() {
   for (let i=0; i<routes.length; i++) {
     console.log("ordenado dentro")
     console.log(nombresDistancias);
+    console.log("parametro: " + nombresDistancias[i][0])
     imprimirLista(nombresDistancias[i][0])
   }
 
