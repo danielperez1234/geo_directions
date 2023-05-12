@@ -49,7 +49,7 @@ async function onRequestHandler() {
         var marker;
 
         data.map(item => {
-            var myLatlngCoordenadaSucursal = new google.maps.LatLng(item.geometry.latitude, item.geometry.longitude);
+            var myLatlngCoordenadaSucursal = new google.maps.LatLng(item.geometry.coordinates[0], item.geometry.coordinates[1]);
             marker = new google.maps.Marker({
                 position: myLatlngCoordenadaSucursal,
                 icon: '/map',

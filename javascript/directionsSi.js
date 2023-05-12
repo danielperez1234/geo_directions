@@ -148,7 +148,7 @@ async function onRequestHandler() {
     };
     contador = -1
     await Promise.all(data.map(async (item) => {
-      var coordenadaSucursal = item.latitude + ", " + item.longitude;
+      var coordenadaSucursal = item.geometry.latitude + ", " + item.geometry.longitude;
       coordenadasSucursales[contador] = coordenadaSucursal;
       console.log(coordenadasSucursales);
       contador = contador + 1;
