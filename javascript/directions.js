@@ -27,7 +27,7 @@ function calcRoute() {
 //intento para lo de los marcadores
 /*Se guarda el endpoint de la API en "API_URL" para obtener
 datos de sucursales*/
-const API_URL = "http://172.18.70.100:4000/api/sucursales/findAll"; //cambiar IP
+const API_URL = "http://172.18.70.45:4000/api/sucursales/findAll"; //cambiar IP
 /*Se crea la instancia para realizar una solicitud GET a la API
 y obtener los datos de sucursales*/
 const xhr = new XMLHttpRequest();
@@ -49,7 +49,7 @@ async function onRequestHandler() {
         var marker;
 
         data.map(item => {
-            var myLatlngCoordenadaSucursal = new google.maps.LatLng(item.latitude, item.longitude);
+            var myLatlngCoordenadaSucursal = new google.maps.LatLng(item.geometry.latitude, item.geometry.longitude);
             marker = new google.maps.Marker({
                 position: myLatlngCoordenadaSucursal,
                 icon: '/map',
